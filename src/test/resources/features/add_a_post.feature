@@ -1,21 +1,20 @@
-Feature: Adding posts
+Feature: User adds a post to social network
 
-
-  Scenario: create a post
+  Scenario: User creates a post
     Given an existing user
     When the user creates a new post
     Then a 201 response is returned
     And the response returns the requested post
     And the post is added to the social network
 
-  Scenario: create multiple posts
+
+  Scenario: User creates multiple posts
     Given an existing user
     When the user creates 10 posts
     Then the posts are added to the social network
 
-
   @sad
-  Scenario Outline: invalid post fields
+  Scenario Outline: User attempts to create a post with null fields
     Given an existing user
     When the user creates a new post with "<field>" having no entry
     Then a 404 response is returned
