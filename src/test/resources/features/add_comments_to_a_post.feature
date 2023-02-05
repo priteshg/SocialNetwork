@@ -14,7 +14,7 @@ Feature: Adding comments to posts
     Then the comments are added to the post
 
   @sad
-  Scenario Outline: User attempts to add a comment to a post with null fields
+  Scenario Outline: User attempts to add a comment to a post with a null entry
     Given an existing post
     When a comment is added to the post with field:"<field>" having value:"null"
     Then a 404 response is returned
