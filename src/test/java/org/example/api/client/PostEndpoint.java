@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PostEndpoint extends Base {
     public static final String POSTS = "posts";
-    public static final String POSTS_BY_ID = "posts/{id}";
+    public static final String POST_BY_ID = "posts/{id}";
 
     public List<Post> getPosts() {
         return Arrays.asList(getBaseRequestSpecification()
@@ -22,7 +22,7 @@ public class PostEndpoint extends Base {
     public Response getPost(int id) {
         return getBaseRequestSpecification()
                 .pathParams("id", id)
-                .get(POSTS_BY_ID);
+                .get(POST_BY_ID);
     }
 
     public Response addAPost(Post post) {
@@ -35,10 +35,7 @@ public class PostEndpoint extends Base {
     public Response deletePost(int id) {
         return getBaseRequestSpecification()
                 .pathParams("id", id)
-                .delete(POSTS_BY_ID);
+                .delete(POST_BY_ID);
     }
-
-
-
 
 }

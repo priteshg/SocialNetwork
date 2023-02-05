@@ -8,9 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CommentsEndpoint extends Base {
-    public static final String COMMENTS = "Comments";
-    public static final String COMMENT_BY_ID = "Comments/{id}";
-
+    public static final String COMMENTS = "comments";
+    public static final String COMMENT_BY_ID = "comments/{id}";
     public static final String COMMENTS_FOR_POST = "posts/{id}/comments";
 
     public List<Comment> getComments() {

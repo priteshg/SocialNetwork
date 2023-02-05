@@ -40,7 +40,7 @@ public class CommentsSteps {
         Response response = commentsEndpoint.createComment(post.getId(), comment);
         testContext.setExpectedComment(comment);
         testContext.setResponse(response);
-        addCommentToContext(response);
+        addReturnedCommentToContext(response);
 
     }
 
@@ -51,7 +51,9 @@ public class CommentsSteps {
         Response response = commentsEndpoint.getCommentsForPost(testContext.getReturnedPost().getId());
         assertThat(response.getStatusCode()).isEqualTo(SC_OK);
         Comment[] actualComments = response.as(Comment[].class);
-        assertThat(actualComments.length).withFailMessage("Expected 1 comment for post found [%s]", actualComments.length).isEqualTo(1);
+        assertThat(actualComments.length)
+                .withFailMessage("Expected 1 comment for post found [%s]", actualComments.length)
+                .isEqualTo(1);
         assertThat(expectedComment).isEqualTo(actualComments[0]);
     }
 
@@ -82,8 +84,14 @@ public class CommentsSteps {
         Comment[] actualComments = response.as(Comment[].class);
         assertThat(actualComments.length).isEqualTo(expectedComments.size());
 
-        List<Comment> sortedExpectedComments = expectedComments.stream().sorted(Comparator.comparingInt(Comment::getId)).collect(Collectors.toList());
-        List<Comment> sortedActualComments = Arrays.stream(actualComments).sorted(Comparator.comparingInt(Comment::getId)).collect(Collectors.toList());
+        List<Comment> sortedExpectedComments =
+                expectedComments.stream()
+                .sorted(Comparator.comparingInt(Comment::getId))
+                .collect(Collectors.toList());
+        List<Comment> sortedActualComments =
+                Arrays.stream(actualComments)
+                        .sorted(Comparator.comparingInt(Comment::getId))
+                        .collect(Collectors.toList());
         assertThat(sortedActualComments).isEqualTo(sortedExpectedComments);
 
     }
@@ -111,7 +119,7 @@ public class CommentsSteps {
         }
         Response response = commentsEndpoint.createComment(post.getId(), comment);
         testContext.setResponse(response);
-        addCommentToContext(response);
+        addReturnedCommentToContext(response);
     }
 
     @When("a comment is added to a non existing post")
@@ -141,7 +149,7 @@ public class CommentsSteps {
     }
 
     @SneakyThrows
-    private void addCommentToContext(Response response) {
+    private void addReturnedCommentToContext(Response response) {
         testContext.setReturnedComment(response.as(Comment.class));
     }
 

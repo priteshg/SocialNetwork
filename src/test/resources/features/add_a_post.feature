@@ -1,5 +1,6 @@
 Feature: User adds a post to social network
 
+
   Scenario: User creates a post
     Given an existing user
     When the user creates a new post
@@ -12,6 +13,7 @@ Feature: User adds a post to social network
     Given an existing user
     When the user creates 10 posts
     Then the posts are added to the social network
+
 
   @sad
   Scenario Outline: User attempts to create a post with a null entry

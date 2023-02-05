@@ -20,7 +20,7 @@ public class Hooks {
     }
 
     @After()
-    public void afterScenarioWithUser() {
+    public void tearDownData() {
 
         if (testContext.getReturnedPost() != null) {
             postEndpoint.deletePost(testContext.getReturnedPost().getId());

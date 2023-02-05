@@ -34,6 +34,12 @@ public class PostSteps {
     }
 
 
+    @Given("an existing post")
+    public void anExistingPost() {
+        userSteps.anExistingUser();
+        userCreateANewPost();
+    }
+
     @When("the user creates a new post")
     public void userCreateANewPost() {
         User user = testContext.getUser();
@@ -50,7 +56,7 @@ public class PostSteps {
         List<Post> posts = new ArrayList<>();
         IntStream.range(0, n).forEach((i) -> {
             Post post = PostGenerator.getSamplePost(user.getId());
-            post.setTitle("test title " + i);
+            post.setTitle(String.format("test title %s", i));
             Response response = postEndpoint.addAPost(post);
             assertThat(response.getStatusCode()).isEqualTo(SC_CREATED);
             posts.add(response.as(Post.class));
@@ -68,19 +74,6 @@ public class PostSteps {
     @Then("the posts are added to the social network")
     public void thePostsAreAddedToTheSocialNetwork() {
         testContext.getPosts().forEach((this::verifyPostHasBeenAdded));
-    }
-
-
-    private void verifyPostHasBeenAdded(Post post) {
-        Response response = postEndpoint.getPost(post.getId());
-        assertThat(response.getStatusCode()).isEqualTo(SC_OK);
-        assertThat(post).isEqualTo(response.as(Post.class));
-    }
-
-    @Given("an existing post")
-    public void anExistingPost() {
-        userSteps.anExistingUser();
-        userCreateANewPost();
     }
 
 
@@ -104,11 +97,17 @@ public class PostSteps {
         testContext.setPosts(List.of(response.as(Post.class)));
     }
 
-    @And("the response returns the requested post")
+    @Then("the response returns the requested post")
     public void theResponseReturnsTheRequestedPost() {
         Post expectedPost = testContext.getExpectedPost();
         Post returnedPost = testContext.getReturnedPost();
         assertThat(returnedPost).isEqualToIgnoringNullFields(expectedPost);
+    }
+
+    private void verifyPostHasBeenAdded(Post post) {
+        Response response = postEndpoint.getPost(post.getId());
+        assertThat(response.getStatusCode()).isEqualTo(SC_OK);
+        assertThat(post).isEqualTo(response.as(Post.class));
     }
 }
 

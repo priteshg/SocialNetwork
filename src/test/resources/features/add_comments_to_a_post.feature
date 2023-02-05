@@ -8,10 +8,12 @@ Feature: Adding comments to posts
     And the response returns the comment with the correct postId
     And the comment is added to the post
 
+
   Scenario: User adds many comments to an existing post
     Given an existing post
     When 10 comments are added to the post
     Then the comments are added to the post
+
 
   @sad
   Scenario Outline: User attempts to add a comment to a post with a null entry
@@ -24,6 +26,7 @@ Feature: Adding comments to posts
       | name  |
       | body  |
 
+
   @sad
   Scenario Outline: User attempts to add a comment to a post with an invalid email
     Given an existing post
@@ -34,6 +37,7 @@ Feature: Adding comments to posts
       | Abc.example.com                     |
       | A@b@c@example.com                   |
 
+
   @sad
   Scenario Outline: User attempts to add a comment to a post with an invalid name
     Given an existing post
@@ -43,6 +47,7 @@ Feature: Adding comments to posts
       | invalidName |
       | !£          |
       | 'Andy       |
+
 
   @sad
   Scenario: User attempts to add a comment to a non existing post
