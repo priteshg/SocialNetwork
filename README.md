@@ -23,7 +23,7 @@ As a precondition a new user is created and used to create the post.
 * You verify that the post has been added to the social network by using the endpoint - GET	/posts/{postId}
 * Title, and body are required fields - a 404 is returned if null.
 
-### Note:
+#### Note:
 The verification can be extended further by also testing the post has been added to the users profile when this becomes available.
 
 ### Add comments to a post
